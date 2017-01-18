@@ -2,6 +2,7 @@
 #include "Date.h"
 #include "Operation.h"
 #include "Compte.h"
+#include "MemoryPool.h"
 
 using namespace std;
 
