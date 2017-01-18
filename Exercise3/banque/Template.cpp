@@ -21,6 +21,10 @@ template<typename T> class Vector {
 			int size (void) const { return taille; }
 	};
 
+
+            // pay attention to where the const is
+            // and how it applies.To avoid this apply directly
+            // to
 template <class T> //fonction générique
 bool greaterThan (  T const & a,  T const & b){ return a < b; }
 
@@ -46,16 +50,30 @@ struct comparator {
 	bool operator () ( T const &a,  T  const &b) {return a>b;}
 };
 
+// The academic way to do it , create an object Operation
+// is a functor () by overloading
+// then it returns
+// A functor is pretty much just a class which defines the operator().
+// That lets you create objects which "look like" a function:
 struct OperationComparator {
 	bool operator () ( Operation * o1,  Operation * o2) {
 		return o1->getMontant() > o2->getMontant() ? true:false;
 	}
 };
 
+// This is simply a function
 bool operationComparator ( Operation * o1,  Operation * o2) {
 		return o1->getMontant() > o2->getMontant() ? true:false;
 }
 
+// This template is much better as the user can define a
+// type a comparion. A functor is an object that behaves
+// like a function. This class c is generic. It behaves like
+// a functor it takes two parameters. A default function is used
+// which is a struct or a class. So the object comparator is created
+// for type T and contains a function (). The comparator is a generic
+// type which we define. The only thing that is requried is the
+// fact it has a function ()
 template<typename  T, typename Comparator>
 void sortWithFunctor (Vector<T>& v, Comparator c =comparator<T>() )
 {
@@ -83,6 +101,8 @@ int mainn(int argc, char **argv) {
 	v[1] = new Operation(5);
 	v[2] = new Operation(15);
 
+    // Here we pass a vector and the class ( an object that defines a functor)
+    // This is an anonymous object (Academic approach)
 	sortWithFunctor(v,OperationComparator());
 	cout << v[0]->toString() << " " << v[1]->toString() << " "<< v[2]->toString() << endl;
 
@@ -90,6 +110,10 @@ int mainn(int argc, char **argv) {
 	v[1] = new Operation(5);
 	v[2] = new Operation(15);
 
+    // 2nd approach, no longer a functor but simply a function
+    // Simply an address of a function, which however must take two objects
+    // and return a bool
+    // sortWithFunctor is a generic function defined by a template
 	sortWithFunctor(v,operationComparator);
 	cout << v[0]->toString() << " " << v[1]->toString() << " "<< v[2]->toString() << endl;
 
@@ -97,9 +121,18 @@ int mainn(int argc, char **argv) {
 	v[1] = new Operation(5);
 	v[2] = new Operation(15);
 
-	sortWithFunctor(v,[](Operation * const& o1, Operation * const& o2){
+    // If we only have to use it once. Why then define a function ?
+    // Since it is only used once, this is the definition of a lambda
+    // expression. We define the semantic of a function without the name
+    //
+    sortWithFunctor(
+                v,  [](Operation * const& o1, Operation * const& o2)->bool
+    {
 		return o1->getMontant() < o2->getMontant() ? true:false;
-	});
+    }
+    );
+
+
 	cout << v[0]->toString() << " " << v[1]->toString() << " "<< v[2]->toString() << endl;
 
 	Vector<int> v2(3);
