@@ -84,7 +84,7 @@ void sortWithFunctor (Vector<T>& v, Comparator c =comparator<T>() )
 				T temp = v[j];
 				v[j] = v[j-1];
 				v[j-1] = temp;
-			}
+            }
 }
 
 

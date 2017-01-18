@@ -11,6 +11,7 @@
 #include "Personne.h"
 #include "Robot.h"
 #include "Societe.h"
+#include "GenericMemoryPool.h"
 
 using namespace std;
 using namespace exemple;
