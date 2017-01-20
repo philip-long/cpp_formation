@@ -7,10 +7,10 @@
 
 #include "Employe.h"
 
-
+namespace exemple {
 
 Employe::~Employe() {
 	// TODO Auto-generated destructor stub
 }
 
-
+} /* namespace exemple */

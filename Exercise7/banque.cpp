@@ -157,5 +157,38 @@ void Banque::visualiserCompteParSolde(float seuil) const
 }
 
 
+float Banque::produireBilanFinancierParCompte(Compte & cpt)
+{
+    float result=0;
+    for(auto & o : cpt.getOperations())
+    {
+        result+=o->getMontant();
+    }
+    return result;
+}
+
+float Banque::produireBilanFinancier() const{
+    std::vector<std::future<float>> futures;
+    for(auto& o : comptes)
+    {
+        // std::aynsc is by default sync
+        // to force it to be asynch need to
+        // std::
+        futures.push_back(
+                    std::async(std::launch::async,
+                               produireBilanFinancierParCompte,
+                               *this,
+                               std::ref(*o.second)
+                               )
+                          );
+    }
+}
+
+
+
+
+
+
+
 
 

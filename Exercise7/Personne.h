@@ -8,33 +8,36 @@
 #ifndef PERSONNE_H_
 #define PERSONNE_H_
 #include <iostream>
+#include <string>
 #include  "Employe.h"
-#include  "titulaire.h"
+#include  "Titulaire.h"
 
-//namespace exemple {
+namespace exemple {
 
 class Personne : public Employe, public Titulaire {
-private:
-    std::string nom;
-    std::string prenom;
-    std::string address_postal;
+	std::string nom;
+	std::string prenom;
+	std::string adresse;
+
 public:
-    Personne(const std::string& nom, const std::string& prenom,const std::string& address_postal);
-	~Personne();
+	Personne(const std::string& nom, const std::string& prenom, const std::string& adresse)
+	: nom(nom), prenom(prenom), adresse(adresse) {}
+	~Personne(){}
 	void travailler() override {
 		std::cout << "je travaille comme une personne ..." << std::endl;
 	}
 	void FaireDuSport();
 	void JouerMusic();
-    std::string getIdentity() const override {
-     return nom+" "+prenom;
-    }
-    std::string getAddress() const override {
-     return address_postal;
-    }
+
+	std::string getIdentite() const override {
+		return nom + " " + prenom;
+	}
+	std::string getAdressePostale() const override {
+		return adresse;
+	}
 
 };
 
-//} /* namespace exemple */
+} /* namespace exemple */
 
 #endif /* PERSONNE_H_ */

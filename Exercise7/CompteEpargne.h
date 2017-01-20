@@ -9,8 +9,6 @@
 #define COMPTEEPARGNE_H_
 #include <string>
 #include "Compte.h"
-#include "typeinfo"
-#include <memory>
 
 class CompteEpargne : public Compte {
 protected :
@@ -18,17 +16,15 @@ protected :
 	float cumulDesBeneficesFinanciers;
 public:
 	virtual ~CompteEpargne();
-    CompteEpargne(float depotInitial, float taux,const Titulaire& titulaire) ;
+	CompteEpargne(float depotInitial, float taux, const Titulaire & titulaire);
 	void produireInterets();
 	std::string toString() const;
-    void debiter(float montant) override{
-        if(montant<=solde)
-        {
-            solde-=montant;
-            std::unique_ptr<Operation> p(new Operation(montant, Operation::typeOperation::debit));
-            operations.push_back(std::move(p));
-        }
-    }
+	/*void debiter (float montant) override {
+		if(montant<=solde) {
+			solde -= montant;
+			operations.push_back(new Operation(montant, Operation::typeOperation::debit));
+		}
+	}*/
 
 };
 

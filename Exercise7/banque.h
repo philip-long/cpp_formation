@@ -2,12 +2,15 @@
 #define BANQUE_H
 
 #include <iostream>
+#include <functional>
 #include "string"
 #include "Compte.h"
 #include "CompteEpargne.h"
 #include "map"
 #include "SpecificAllocator.h"
 #include "algorithm"
+#include "future"
+
 
 class Banque
 {
@@ -38,7 +41,8 @@ public:
     void editerReleves() const;
     void visualiserCompteParSolde(float seuil) const;
     void visualiserCompteParCrieteria(float seuil) const;
-
+    float produireBilanFinancier() const;
+    float produireBilanFinancierParCompte(Compte  & cpt);
 };
 
 #endif // BANQUE_H

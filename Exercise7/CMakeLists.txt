@@ -1,4 +1,4 @@
-project(Exerercise6)
+project(Exerercise7)
 cmake_minimum_required(VERSION 2.8)
 
 # Check C++11 or C++0x support
